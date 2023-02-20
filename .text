@@ -1,0 +1,156 @@
+import { useContext, useState } from 'react'
+
+import './styles/global.css'
+
+import { Coffee, CoffeeContext } from './contexts/CoffeeContext'
+
+function Header() {
+  let { checkCoffee, total } = useContext(CoffeeContext)
+
+  const checkoutTotal = checkCoffee.length
+
+  return (
+    <div>
+      <h2>
+        E-commerce | Carrinho - {checkoutTotal} | Price - {total.toFixed(2)}
+      </h2>
+    </div>
+  )
+}
+
+function Main() {
+  const {
+    coffee,
+    addToCoffeeCheckout,
+    handleIncrementAmount,
+    handleDecrementAmount,
+  } = useContext(CoffeeContext)
+
+  const coffees = coffee
+
+  function handleAddCoffeeToCheckout(coffee: Coffee) {
+    addToCoffeeCheckout(coffee)
+  }
+  return (
+    <div>
+      <ul>
+        {coffees.map((coffee, index) => (
+          <li key={index}>
+            <span>{coffee.id}</span> - <span>{coffee.product}</span> <br />
+            <span>Quantidade - {coffee.amount}</span>
+            <br />
+            <button
+              type="button"
+              disabled={coffee.amount === 0 ? true : false}
+              onClick={() => handleIncrementAmount(coffee)}
+            >
+              -
+            </button>
+            {coffee.amount}
+            <button type="button" onClick={() => handleDecrementAmount(coffee)}>
+              +
+            </button>
+            <button onClick={() => handleAddCoffeeToCheckout(coffee)}>
+              Adicionar
+            </button>
+            <hr />
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+function PageCheckout() {
+  const { checkCoffee, deleteToCoffee } = useContext(CoffeeContext)
+
+  const checkoutTotal = checkCoffee.length
+
+  function handleDeleteCoffee(id: number) {
+    deleteToCoffee(id)
+  }
+
+  return (
+    <div>
+      <h1>Meu Carrinho</h1>
+      {!checkoutTotal ? (
+        <p>Não tens nada no carrinho</p>
+      ) : (
+        checkCoffee.map((coffee, index) => (
+          <li key={index}>
+            <span>{coffee.id}</span> - <span>{coffee.product}</span>
+            <span> - [{coffee.amount}]</span>
+            <button onClick={() => handleDeleteCoffee(coffee.id)}>
+              Delete
+            </button>
+            <br />
+          </li>
+        ))
+      )}
+    </div>
+  )
+}
+
+export function App() {
+  const [coffee, setCoffee] = useState([
+    { id: 1, product: 'Expresso Tradicional', price: 9.99, amount: 0 },
+    { id: 2, product: 'Expresso Americano', price: 9.99, amount: 0 },
+    { id: 3, product: 'Expresso Cremoso', price: 9.99, amount: 0 },
+    { id: 4, product: 'Expresso Gelado', price: 9.99, amount: 0 },
+  ])
+
+  const [checkCoffee, setCheckCoffee] = useState<Coffee[] | []>([])
+  const [total, setTotal] = useState(0)
+
+  function addToCoffeeCheckout(coffeeProduct: Coffee) {
+    const index = checkCoffee.findIndex((item) => item.id === coffeeProduct.id)
+
+    if (index !== -1) {
+      const newCoffee = [...checkCoffee]
+      newCoffee[index].amount += 1
+      setCheckCoffee(newCoffee)
+      setTotal(total + coffeeProduct.price)
+    } else {
+      setCheckCoffee([...checkCoffee, { ...coffeeProduct, amount: 0 }])
+      setTotal(total + coffeeProduct.price)
+    }
+  }
+
+  function deleteToCoffee(id: number) {
+    const checkCoffeeToDelete = checkCoffee.filter((item) => item.id !== id)
+    console.log(checkCoffeeToDelete)
+    setCheckCoffee([...checkCoffeeToDelete])
+  }
+
+  function handleIncrementAmount(coffee: Coffee) {
+    const index = checkCoffee.findIndex((item) => item.id === coffee.id)
+
+    if (index !== -1) {
+      const newCoffee = [...checkCoffee]
+      newCoffee[index].amount += 1
+      setCheckCoffee(newCoffee)
+    }
+  }
+
+  function handleDecrementAmount(coffee: Coffee) {
+    console.log(coffee)
+  }
+
+  return (
+    <CoffeeContext.Provider
+      value={{
+        checkCoffee,
+        coffee,
+        total,
+        addToCoffeeCheckout,
+        deleteToCoffee,
+        handleIncrementAmount,
+        handleDecrementAmount,
+      }}
+    >
+      <Header />
+      <Main />
+      <PageCheckout />
+    </CoffeeContext.Provider>
+  )
+}
