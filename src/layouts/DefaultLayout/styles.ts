@@ -1,3 +1,3 @@
 import styled from 'styled-components'
 
-export const LayoutContainer = styled.header``
+export const LayoutContainer = styled.div``
