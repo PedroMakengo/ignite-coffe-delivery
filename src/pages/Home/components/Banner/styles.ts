@@ -5,7 +5,7 @@ import BannerImg from '../../../../assets/banner.svg'
 export const Background = styled.div`
   background-image: url(${BannerImg});
   background-size: cover;
-  height: 70vh;
+  height: 34rem;
 `
 export const Container = styled.div`
   width: 75%;
@@ -77,7 +77,10 @@ export const ContentHeader = styled.div`
 
   p {
     color: ${(props) => props.theme['base-subtitle']};
+    font-family: 'Robot', sans-serif;
     font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 130%;
     width: 90%;
   }
 `

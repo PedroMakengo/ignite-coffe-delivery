@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 
   :focus {
     outline: 0;
-    box-shadow: 0 0 0 2px ${(props) => props.theme['white']}
+    box-shadow: 0 0 0 1px ${(props) => props.theme['base-card']}
   }
  
   body {
@@ -22,5 +22,11 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 1rem;
+  }
+
+  ul {
+    list-style:none;
+    padding: 0;
+    margin: 0;
   }
 `
