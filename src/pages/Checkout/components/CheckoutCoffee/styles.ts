@@ -119,4 +119,9 @@ export const ButtonConfirmed = styled.button`
 
   background: ${(props) => props.theme['yellow']};
   color: ${(props) => props.theme['white']};
+
+  text-transform: uppercase;
+  font-weight: 700;
+
+  font-size: 0.875rem;
 `

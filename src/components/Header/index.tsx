@@ -8,11 +8,11 @@ export function Header() {
   return (
     <Container>
       <Content>
-        <NavLink to="/home">
+        <NavLink to="/">
           <img src={logo} />
         </NavLink>
         <nav>
-          <ButtonCity to="/home">
+          <ButtonCity to="/">
             <MapPin size={22} color="#8047F8" weight="fill" />
             Porto Alegre, SR
           </ButtonCity>
