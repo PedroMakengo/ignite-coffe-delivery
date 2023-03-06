@@ -1,69 +1,60 @@
-import styled from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import styled, { css } from 'styled-components'
 
-export const Container = styled.div`
+export const HeaderContainer = styled.header`
+  width: 100%;
   height: 6.5rem;
-`
-export const Content = styled.header`
-  width: 75%;
-  height: 100%;
-
+  background: ${({ theme }) => theme.colors['base-background']};
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  position: sticky;
 
-  margin: 0 auto;
+  top: 0;
+  left: 0;
 
-  nav {
-    display: flex;
-    gap: 0.75rem;
+  z-index: 5;
 
-    a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 6px;
-
-      text-decoration: none;
-      padding: 8px;
-      cursor: pointer;
-    }
-  }
-`
-
-export const ButtonCheckout = styled(NavLink)`
-  width: 2.37rem;
-  height: 2.37rem;
-  background: ${(props) => props.theme['yellow-light']};
-  position: relative;
-
-  sup {
-    position: absolute;
-    right: -8px;
-    top: -8px;
-
-    background: ${(props) => props.theme['yellow']};
-    width: 1.25rem;
-    height: 1.25rem;
-
-    border-radius: 9999px;
-
+  > div {
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-
-    font-weight: 700;
-    letter-spacing: -0.06em;
-    line-height: 130%;
-
-    color: ${(props) => props.theme['white']};
+    justify-content: space-between;
   }
 `
 
-export const ButtonCity = styled(NavLink)`
-  width: 9.93rem;
-  background: ${(props) => props.theme['purple-light']};
+export const HeaderButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+`
 
-  font-size: 0.875rem;
-  gap: 0.3rem;
+interface HeaderButtonProps {
+  variant: 'purple' | 'yellow'
+}
+
+export const HeaderButton = styled.button<HeaderButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 6px;
+  border: none;
+  padding: 0 0.5rem;
+  position: relative;
+
+  font-size: ${({ theme }) => theme.textSizes['text-regular-s']};
+  ${({ variant, theme }) => css`
+    background: ${theme.colors[`brand-${variant}-light`]};
+    color: ${theme.colors[`brand-${variant}-dark`]};
+  `}
+
+  ${({ variant, theme }) =>
+    variant === 'purple' &&
+    css`
+      svg {
+        color: ${theme.colors[`brand-purple`]};
+      }
+    `}
 `

@@ -1,11 +1,12 @@
-import { Banner } from './components/Banner'
-import { MainCoffee } from './components/MainCoffee'
+import { Intro } from './components/Intro'
+import { OurCoffee } from './components/OurCoffees'
+import { HomeContainer } from './styles'
 
-export function Home() {
+export function HomePage() {
   return (
-    <>
-      <Banner />
-      <MainCoffee />
-    </>
+    <HomeContainer>
+      <Intro />
+      <OurCoffee />
+    </HomeContainer>
   )
 }
