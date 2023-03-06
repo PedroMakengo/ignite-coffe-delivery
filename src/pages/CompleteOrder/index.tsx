@@ -1,7 +1,9 @@
+import { CompleteOrderContainer } from './styles'
+
 export function CompleteOrderPage() {
   return (
-    <div>
+    <CompleteOrderContainer className="container">
       <h1>Completed</h1>
-    </div>
+    </CompleteOrderContainer>
   )
 }
