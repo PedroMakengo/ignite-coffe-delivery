@@ -11,4 +11,6 @@ export const SelectedCoffeesContainer = styled.div`
 
 export const DetailsContainer = styled(SectionBaseStyle)`
   border-radius: 6px 44px 6px 44px;
+  display: flex;
+  flex-direction: column;
 `
