@@ -17,7 +17,11 @@ interface CoffeeCartCartProps {
 }
 
 export function CoffeeCartCard({ coffee }: CoffeeCartCartProps) {
-  const { changeCartItemQuantity } = useCart()
+  const { changeCartItemQuantity, removeCartItem } = useCart()
+
+  function handleRemove() {
+    removeCartItem(coffee.id)
+  }
 
   function handleIncrease() {
     changeCartItemQuantity(coffee.id, 'increase')
@@ -45,7 +49,7 @@ export function CoffeeCartCard({ coffee }: CoffeeCartCartProps) {
               quantity={coffee.quantity}
               size="small"
             />
-            <RemoveButton>
+            <RemoveButton onClick={handleRemove}>
               <Trash size={16} />
               REMOVER
             </RemoveButton>
